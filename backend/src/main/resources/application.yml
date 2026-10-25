@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: centralized-health-passport
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/centralized_health_passport?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${DB_USERNAME:health_passport_user}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    default-property-inclusion: non_null
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: never
+
+app:
+  cors:
+    allowed-origin: ${FRONTEND_ORIGIN:http://localhost:5173}
+  ollama:
+    base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+    model: ${OLLAMA_MODEL:llama3.2:3b}
+    connect-timeout-ms: ${OLLAMA_CONNECT_TIMEOUT_MS:3000}
+    read-timeout-ms: ${OLLAMA_READ_TIMEOUT_MS:45000}
